@@ -1,10 +1,13 @@
 #!/bin/bash
 
 filename=cpu_usage
-  
+
 while :
 do
         curr=$(top -bn 1 | grep "Cpu")
-        echo "${curr}  $(date  "+Date::%d/%m/%y  Time::%H:%M:%S")" >> $filename
+        echo "========================" >> $filename
+        echo "$(date  "+Date::%d/%m/%y  Time::%H:%M:%S")" >> $filename
+        echo "us : $(echo $curr | awk '{print $2}')" >> $filename
+        echo "sy : $(echo $curr | awk '{print $4}')" >> $filename
         sleep 10
 done
