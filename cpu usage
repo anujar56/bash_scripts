@@ -1,0 +1,10 @@
+#!/bin/bash
+
+filename=cpu_usage
+  
+while :
+do
+        curr=$(top -bn 1 | grep "Cpu")
+        echo "${curr}  $(date)" >> $filename
+        sleep 10
+done
