@@ -50,7 +50,12 @@ if [[ $# -eq 0 ]]; then
 fi
 
 if [[ $# == 2 ]]; then
-	logfile=$2
+	if [[ -e $2 ]]; then
+		logfile=$2
+	else
+		echo "File $2 doesn't exists"
+		exit 1
+	fi
 fi
 
 while getopts "hi" options; do
