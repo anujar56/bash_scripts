@@ -29,7 +29,7 @@ display() {
 			;;
 		2)
 			echo "List of unique error messages and their frequencies:"
-			cat log_file.log | grep error | awk -F ":" '{print "error: " $NF}' | uniq -u
+			cat $logfile | grep error | awk -F ":" '{print "error: " $NF}' | sort | uniq -c
 			;;
 		3)
 			echo "Searching for errors containing the keyword 'error':"
@@ -49,7 +49,9 @@ if [[ $# -eq 0 ]]; then
 	exit 1
 fi
 
-
+if [[ ! $2 == "${logfile}" ]]; then
+	logfile=$2
+fi
 
 while getopts "hi" options; do
 	case $options in
