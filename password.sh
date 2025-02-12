@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#pass function to check password is alphanumeric or not and has length greater then 8
 pass() {
 
         local password=$1
@@ -18,7 +19,7 @@ pass() {
 
 }
 
-
+#help function
 show_help() {
 
 	echo "Usage: $0 [options]"
@@ -31,7 +32,7 @@ show_help() {
 
 }
 
-
+#flags
 while getopts "eh" options; do
 	case $options in
 		e)
@@ -52,5 +53,3 @@ done
 
 
 
-#read -p "Enter the password: " psd
-#pass "${psd}"
