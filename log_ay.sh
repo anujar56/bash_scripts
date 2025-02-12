@@ -49,7 +49,7 @@ if [[ $# -eq 0 ]]; then
 	exit 1
 fi
 
-if [[ ! $2 == "${logfile}" ]]; then
+if [[ $# == 2 ]]; then
 	logfile=$2
 fi
 
