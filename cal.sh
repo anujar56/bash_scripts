@@ -48,55 +48,22 @@ rec() {
 	return 0
 }
 
-inter() {
-	echo "Choose the shape to calculate the area:"
-	echo "1. Circle"
-	echo "2. Square"
-	echo "3. Rectangle"
-	echo "Enter your choice (1/2/3):"
-
-	echo "Enter choice: "
-	read choice
-	echo ""
-
-	if [[ ${choice} -eq 1  ]]; then
-
-		echo "Enter the radius of the circle:"
-		echo "Enter radius: "
-		read radius
-		circle ${radius}
-
-	elif [[ ${choice} -eq 2 ]]; then
-		echo "Enter the side of the square: "
-		echo "Enter side"
-		read side
-		sqa ${side}
-	else
-		inter
-	fi
-
-	
-}
-
-while getopts "ir:c:s:h" options; do
+while getopts "h" options; do
 	case $options in 
 		h) 
 			show_help
 			;;
-		c)
-			circle "${OPTARG}"
-			exit 0
-			;;
-		s)
-			sqa "${OPTARG}"
-			;;
-		r)	
-			IFS="," read -r l h <<< ${OPTARG}
-			rec $l $h
-			;;
-		i)
-			inter
-			;;
+#		c)
+#			circle "${OPTARG}"
+#			exit 0
+#			;;
+#		s)
+#			sqa "${OPTARG}
+#			;;
+#		r)	
+#			IFS="," read -r l h <<< ${OPTARG}
+#			rec $l $h
+#			;;
 		?)
 			echo "Invalid option: "
 			echo "Use $0 -h"
@@ -105,3 +72,12 @@ while getopts "ir:c:s:h" options; do
 	esac
 done
 
+if [[ $1 == "circle" ]]; then
+	circle $2
+elif [[ $1 == "rectangle" ]]; then
+	rec $2 $3
+elif [[ $1 == "square" ]]; then
+	sqa $2
+else
+	echo "Use: $0 -h"
+fi
