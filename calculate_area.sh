@@ -58,13 +58,30 @@ cal() {
 	
 }
 
+area_of_circle=0
+p="3.14156"
 circle() {
 	local radius=$1
-	echo ""
+	area_of_circle=$(echo "scale=2; $p * $radius * $radius" | bc)
+	echo "The area of circle: ${area_of_circle}"
 
 }
-square() {}
-rectangle() {}
+area_of_square=0
+
+square() {
+	local side=$1
+	area_of_square=$((${side}*${side}))
+	echo "The area of square: ${area_of_square}"
+
+}
+area_of_rectangle=0
+
+rectangle() {
+	local l=$1
+	local w=$2
+	area_of_rectangle=$((${l}*${w}))
+	echo "The area of rectangle: ${area_of_rectangle}"
+}
 
 
 if [[ $# -eq 0 ]]; then
@@ -73,11 +90,55 @@ fi
 
 case $1 in
 	--debug)
-
 		
+		if [[ $2 == "circle" ]] && [[ $# -eq 3 ]]; then
+			circle "$3"
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the circle with radius $3: $area_of_circle"
+
+		elif [[ $2 == "square" ]] && [[ $# -eq 3 ]]; then
+			square "$3"
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the square with side $3: $area_of_square"
+		
+		elif [[ $2 == "rectangle" ]] && [[ $# -eq 4 ]]; then
+			rectangle "$3" "$4"
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the retangle with lenght $3 and width $4: $area_of_rectangle"
+
+		else
+			show_help
+
+		fi
+		exit 0
+
 		;;
 
-	?)
+
+	--logfile)
+
+		if [[ $2 == "circle" ]] && [[ $# -eq 3 ]]; then
+			circle "$3"
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the circle with radius $3: $area_of_circle" | tee -a calculate_area.log
+
+		elif [[ $2 == "square" ]] && [[ $# -eq 3 ]]; then
+			square "$3"
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the square with side $3: $area_of_square" | tee -a calculate_area.log
+		
+		elif [[ $2 == "rectangle" ]] && [[ $# -eq 4 ]]; then
+			rectangle "$3" "$4"
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the retangle with lenght $3 and width $4: $area_of_rectangle" | tee -a calculate_area.log
+
+		else
+			show_help
+
+		fi
+		exit 0
+		;;
+
+
+
+
+	?)  	
+		show_help
+		exit 1
 		;;
 esac
 
