@@ -35,6 +35,20 @@ cal() {
 			echo "The area of the circle is ${area}"
 			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the circle with radius $ra: $area" >> calculate_area.log
 			;;
+		2)
+			read -p "Enter the side: " si
+			area=$((${si}*${si}))
+			echo "The area of square is ${area}"
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the square with side $si: $area" >> calculate_area.log
+			;;
+		3)
+			read -p "Enter the length: " l
+			read -p "Enter the width: " w
+			area=$((${l}*${w}))
+			echo "The area of the rectangle is ${area}"	
+			echo "[$(date "+%Y-%m-%d %H:%M:%S")] [INFO] :: Calculated area of the retangle with lenght $l and width $w: $area" >> calculate_area.log
+			;;
+
 		?)
 			show_help
 			;;
@@ -43,6 +57,30 @@ cal() {
 
 	
 }
+
+circle() {
+	local radius=$1
+	echo ""
+
+}
+square() {}
+rectangle() {}
+
+
+if [[ $# -eq 0 ]]; then
+	show_help
+fi
+
+case $1 in
+	--debug)
+
+		
+		;;
+
+	?)
+		;;
+esac
+
 
 
 while getopts "hi" options; do
