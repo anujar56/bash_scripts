@@ -36,14 +36,26 @@ categorize() {
 
 interactive() {
 
-		read -p "Enter the log filename:" logfile
-		read -p "Choose operation (filter, categorize):" operation
+		read -p "Enter the log filename: " logfile
+		read -p "Choose operation (filter, categorize): " operation
 		if [[ $operation == "filter" ]]; then
-			read -p "Enter criteria (for filter: ERROR/INFO/WARN/DEBUG):" criteria
+			read -p "Enter criteria (for filter: ERROR/INFO/WARN/DEBUG): " criteria
 		fi
 
 
 }
+
+
+case $1 in
+	--file)
+		logfile=$2
+		filter $4
+		exit 0
+		;;
+	?)
+		show_help
+		;;
+esac
 
 if [[ $# -eq 0 ]]; then
 	show_help
