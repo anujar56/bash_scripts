@@ -48,22 +48,22 @@ rec() {
 	return 0
 }
 
-while getopts "r:c:s:h" options; do
+while getopts "h" options; do
 	case $options in 
 		h) 
 			show_help
 			;;
-		c)
-			circle "${OPTARG}"
-			exit 0
-			;;
-		s)
-			sqa "${OPTARG}"
-			;;
-		r)	
-			IFS="," read -r l h <<< ${OPTARG}
-			rec $l $h
-			;;
+#		c)
+#			circle "${OPTARG}"
+#			exit 0
+#			;;
+#		s)
+#			sqa "${OPTARG}
+#			;;
+#		r)	
+#			IFS="," read -r l h <<< ${OPTARG}
+#			rec $l $h
+#			;;
 		?)
 			echo "Invalid option: "
 			echo "Use $0 -h"
@@ -72,3 +72,16 @@ while getopts "r:c:s:h" options; do
 	esac
 done
 
+if [[ $# -eq 0 ]]; then
+	show_help
+fi
+
+if [[ $1 == "circle" ]] && [[ $# -eq 2 ]]; then
+	circle $2
+elif [[ $1 == "rectangle" ]] && [[ $# -eq 3 ]]; then
+	rec $2 $3
+elif [[ $1 == "square" ]] && [[ $# -eq 2 ]]; then
+	sqa $2
+else
+	show_help
+fi
