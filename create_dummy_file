@@ -2,32 +2,50 @@
 
 des=/mnt/destination
 usage() {
-
-        echo "$0 [-h] [size in GB] [filename]"
-        echo 
-        echo 
-        echo "-h Display this help message."
-        echo "size in GB For example 1 ,2, 3 etc (No decimals)"
-        echo "filename name of the file to be created"
-        exit 1
+	echo
+	echo "$0 [-h] (size in GB) (filename)"
+	echo 
+	echo 
+	echo "-h Display this help message."
+	echo "size in GB For example 1 ,2, 3 etc (No decimals)"
+	echo "filename name of the file to be created"
+	echo
+	exit 1
 
 }
 
+
+case $1 in 
+	-h)
+		usage
+		exit 1
+		;;
+esac
+		
+
 if [[ $# -gt 2 ]]; then
-        usage
-        exit 1
+	usage
+	exit 1
+elif [[ $# -eq 1 ]]; then
+	usage
+	exit 1
 elif [[ $# -eq 0 ]]; then
-        echo "Creating file with defaults (1GB File, name=largefile.img)"
-        cd ${des}
-        dd if=/dev/zero of=largefile.img bs=1M count=1024
-        cd /root
-        exit 0
+	echo "Creating file with defaults (1GB File, name=largefile.img)"
+	cd ${des}
+	dd if=/dev/zero of=largefile.img bs=1M count=1024
+	cd /root
+	exit 0
 else
-        echo "Creating file......"
-        cd ${des}
-        dd if=/dev/zero of=$2.img bs=${1}M count=1024
-        cd /root
-        ls -l $des
-        echo "$2 file created of $1GB at $des"
-        exit 0
+	echo "Creating file......"
+	cd ${des}
+	dd if=/dev/zero of=$2.img bs=${1}M count=1024
+	cd /root
+	ls -l $des
+	echo "$2 file created of $1GB at $des"
+	exit 0
 fi
+
+
+
+
+
