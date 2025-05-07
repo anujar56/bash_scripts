@@ -1,0 +1,18 @@
+#!/bin/bash
+
+des=/mnt/ring
+
+cd $des
+ls | xargs -I {} echo {}
+read  -p "Above files will be deleted(Y/N): " rs
+
+if [[ $rs == "y" ]] || [[ $rs == "Y" ]]; then
+	ls | xargs -I {} rm -rf {}
+	ls $des
+	echo "Data Deleted.."
+	exit 0
+else
+	echo "No file Deleted.."
+	exit 0
+fi
+
