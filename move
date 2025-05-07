@@ -7,6 +7,7 @@ logdest=/home/abendale/downloads/downloadarchive/script.log
 help() {
 	echo "$0 [options] .."
 	echo
+	echo "-d pass dir to move to downloadarchive"
 	echo "-f pass a file to move to downloadarchive"
 	echo "-h help"	
 
@@ -95,9 +96,18 @@ else
 			for arg in "$@"; do
 				mv ${arg} ${dest}
 			done
-			num=$(( $# - 1 ))
-			echo "${num} file moved to downloadarchive--$(date)" | tee -a  ${logdest}
+			#num=$(( $# - 1 ))
+			echo "$# file moved to downloadarchive--$(date)" | tee -a  ${logdest}
 			;;
+		-d)
+			shift # This removes the '-d' from $@
+			for arg in "$@"; do
+				mv ${arg} ${dest}/${arg}
+			done
+			#num=$(( $# - 1 ))
+			echo "$# dir moved to downloadarchive--$(date)" | tee -a  ${logdest}
+			;;
+
 		-h)
 			help
 			;;
