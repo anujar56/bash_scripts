@@ -18,7 +18,7 @@ help() {
 txt() {
 	local c=$(find ${loc} -name '*.txt' | wc -l)
 	if [[ $c -gt 0 ]]; then
-		mv *.txt ${dest}
+		mv *.txt ${dest} 2> /dev/null
 		echo "${c} .txt file moved to downloadarchive--$(date)" >> ${logdest}
 	fi
 }
@@ -28,7 +28,7 @@ pdf() {
 	
 	local c=$(find ${loc} -name '*.pdf' | wc -l)
 	if [[ $c -gt 0 ]]; then
-		mv *.pdf ${dest}
+		mv *.pdf ${dest} 2> /dev/null
 		echo "${c} .pdf file moved to downloadarchive--$(date)" >> ${logdest}
 	fi
 }
@@ -38,7 +38,7 @@ log() {
 	
 	local c=$(find ${loc} -name '*.log' | wc -l)
 	if [[ $c -gt 0 ]]; then
-		mv *.log ${dest}
+		mv *.log ${dest} 2> /dev/null
 		echo "${c} .log file moved to downloadarchive--$(date)" >> ${logdest}
 	fi
 }
@@ -47,7 +47,7 @@ log() {
 jpg() {
 	local c=$(find ${loc} -name '*.jpg' | wc -l)
 	if [[ $c -gt 0 ]]; then
-		mv *.jpg ${dest}
+		mv *.jpg ${dest} 2> /dev/null
 		echo "${c} .jpg file moved to downloadarchive--$(date)" >> ${logdest}
 	fi
 	}
@@ -56,7 +56,7 @@ jpg() {
 png(){	
 	local c=$(find ${loc} -name '*.png' | wc -l)
 	if [[ $c -gt 0 ]]; then
-		mv *.png ${dest}
+		mv *.png ${dest} 2> /dev/null
 		echo "${c} .png file moved to downloadarchive--$(date)" >> ${logdest}
 	fi
 }
@@ -65,7 +65,7 @@ png(){
 out(){
 	local c=$(find ${loc} -name '*.out' | wc -l)
 	if [[ $c -gt 0 ]]; then
-		mv *.out ${dest}
+		mv *.out ${dest} 2> /dev/null
 		echo "${c} .out file moved to downloadarchive--$(date)" >> ${logdest}
         fi
 }
