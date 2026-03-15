@@ -1,6 +1,7 @@
 #!/bin/bash
 
-des=/mnt/ring
+des=/mnt/destination
+
 usage() {
 	echo
 	echo "$0 [-h] (size in GB) (filename)"
