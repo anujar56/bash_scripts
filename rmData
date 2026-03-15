@@ -1,6 +1,6 @@
 #!/bin/bash
 
-des=/mnt/ring
+des=/mnt/destination
 
 cd $des
 ls | xargs -I {} echo {}
