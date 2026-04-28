@@ -2,27 +2,34 @@
 
 echo "Showing Size of each dir"
 echo
-du -sh $1/* | sort -rh
+du -sh ${!#}/* | sort -rh
 echo
 echo "====================="
 
 
-
-d=$(du -sh $1/* | sort -rh | head -5 | awk '{print $2}' | xargs)
-
-size() {
-
+precheck() {
+        #precheck if $1 is file or dir. If file, exit. If dir, continue.
+               
         du -sh $1/* &> /dev/null
         catch=$(echo $?)
         if [[ $catch -eq "1" ]]; then
                exit 0
         fi
-        echo
+}
+
+
+d=$(du -sh ${!#}/* | sort -rh | head -5 | awk '{print $2}' | xargs)
+
+size() {
+        
+        precheck $1
+        echo "======================"
         echo $1 
-        echo
+        echo "======================"
         du -sh $1/* | sort -rh 2> /dev/null
-        echo 
+        
         files=$(du -sh $1/* | sort -rh | head -5 | awk '{print $2}' | xargs)
+        
         for i in $files; do
                 du -sh $i/* &> /dev/null
                 catch=$(echo $?)
@@ -38,11 +45,32 @@ size() {
 
 }
 
+exclude=()
+
+while getopts "e:" opt; do
+        case $opt in
+                e) 
+                        ex=$(($# - 3))
+                        exclude+=("$OPTARG")
+                        # collect additional values
+                        for ((i=0; i<$ex; i++));
+                                do
+                                        exclude+=("${!OPTIND}")
+                                        ((OPTIND++))
+                                done
+                        ;;
+        esac
+done
+
 
 for k in $d; do
         #exclude the directories here
-        if [[ $k == "/var/lib" ]]; then
-                continue
-        fi
+        
+        for j in ${exclude[@]}; do
+                if [[ $k == $j ]]; then
+                        continue 2
+                fi
+        done
+
         size $k
 done
