@@ -2,21 +2,21 @@
 
 echo "Showing Size of each dir"
 echo
-du -sh /var/* | sort -rh
+du -sh $1/* | sort -rh
 echo
 echo "====================="
 
 
 
-d=$(du -sh /var/* | sort -rh | head -5 | awk '{print $2}' | xargs)
+d=$(du -sh $1/* | sort -rh | head -5 | awk '{print $2}' | xargs)
 
 size() {
 
-        #du -sh $1/* &> /dev/null
-        #catch=$(echo $?)
-        #if [[ $catch -eq "1" ]]; then
-        #       exit 0
-        #fi
+        du -sh $1/* &> /dev/null
+        catch=$(echo $?)
+        if [[ $catch -eq "1" ]]; then
+               exit 0
+        fi
         echo
         echo $1 
         echo
@@ -40,6 +40,7 @@ size() {
 
 
 for k in $d; do
+        #exclude the directories here
         if [[ $k == "/var/lib" ]]; then
                 continue
         fi
