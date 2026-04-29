@@ -1,5 +1,10 @@
 #!/bin/bash
 
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+RESET="\e[0m"
+
 echo "Showing Size of each dir"
 echo
 du -sh ${!#}/* | sort -rh
@@ -13,7 +18,8 @@ precheck() {
         du -sh $1/* &> /dev/null
         catch=$(echo $?)
         if [[ $catch -eq "1" ]]; then
-               exit 0
+                echo "$1 is a file. Skipping."
+                exit 0
         fi
 }
 
@@ -24,7 +30,7 @@ size() {
         
         precheck $1
         echo "======================"
-        echo $1 
+        echo  -e "${GREEN}PATH : ${1}${RESET}" 
         echo "======================"
         du -sh $1/* | sort -rh 2> /dev/null
         
@@ -71,6 +77,13 @@ for k in $d; do
                         continue 2
                 fi
         done
+
+        du -sh $k/* &> /dev/null
+        catch1=$(echo $?)
+        if [[ $catch1 -eq "1" ]]; then
+                 echo -e "${RED}$k is a file. Skipping.${RESET}"
+                 continue
+        fi
 
         size $k
 done
